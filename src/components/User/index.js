@@ -29,7 +29,7 @@ async function findUser(req, res, next) {
     try {
         const { email } = req.body;
 
-        Validation.validFindUser({ email });
+        Validation.validEmail({ email });
         const user = await UserService.findUser({ email });
 
         res.status(200).json(user);
@@ -49,7 +49,7 @@ async function createUser(req, res, next) {
     try {
         const { email, fullName } = req.body;
         
-        Validation.validFindUser({ email, fullName });
+        Validation.validEmailAndName({ email, fullName });
         const isUser = await UserService.findUser({ email });
 
         if (isUser !== null) {
@@ -57,7 +57,7 @@ async function createUser(req, res, next) {
         }
         
         const user = await UserService.createUser({ email, fullName });
-      
+
         res.status(200).json(user);
     } catch (error) {
         next(error);
@@ -75,7 +75,7 @@ async function updateUser(req, res, next) {
     try {
         const { email, fullName } = req.body;
 
-        Validation.validUpdateUser({ email, fullName });
+        Validation.validEmailAndName({ email, fullName });
         const user = await UserService.updateUser({ email, fullName });
 
         res.status(200).json(user);
@@ -95,7 +95,7 @@ async function deleteUser(req, res, next) {
     try {
         const { email } = req.body;
 
-        Validation.validDeleteUser({ email })
+        Validation.validEmail({ email });
         const user = await UserService.deleteUser({ email });
 
         res.status(200).json(user);

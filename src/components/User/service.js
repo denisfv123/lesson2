@@ -35,9 +35,7 @@ module.exports = {
      */
     async createUser(dataUser) {
         const user = UserModel(dataUser);
-        return await user.save((err) => {
-            if(err) console.error(`Error: ${err.message}`);
-        });
+        return await user.save();
     },
 
     /**
